@@ -1,4 +1,4 @@
-const CACHE_NAME = 'lumi-ledger-static-v1';
+const CACHE_NAME = 'lumi-ledger-static-v1-1';
 const APP_FILES = ['./', './index.html', './styles.css', './js/db.js', './js/app.js', './manifest.webmanifest', './icons/icon-192.png', './icons/icon-512.png', './icons/apple-touch-icon.png'];
 
 self.addEventListener('install', event => {
