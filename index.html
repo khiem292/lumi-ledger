@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#f6f7f3">
+  <meta name="description" content="Lumi Ledger - nhật ký thu chi bằng hình ảnh, lưu riêng tư ngay trên thiết bị, dùng offline.">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="Lumi Ledger">
+  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="apple-touch-icon" href="./icons/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="./icons/icon-192.png">
+  <link rel="stylesheet" href="./styles.css">
+  <title>Lumi Ledger · Nhật ký thu chi</title>
+</head>
+<body>
+  <div class="ambient ambient-one"></div><div class="ambient ambient-two"></div>
+  <div class="app-shell">
+    <header class="app-header">
+      <div class="brand">
+        <span class="brand-icon" aria-hidden="true"><svg viewBox="0 0 32 32" fill="none"><rect x="5" y="5" width="22" height="22" rx="8" fill="#D8F5A2"/><path d="M10 21V11h3v7h9v3H10Z" fill="#204E3C"/><circle cx="21.5" cy="11.3" r="2.5" fill="#204E3C"/></svg></span>
+        <span><strong>Lumi Ledger</strong><small>NHẬT KÝ TIỀN BẠC</small></span>
+      </div>
+      <span class="privacy-pill"><span class="dot"></span> Riêng tư & offline</span>
+    </header>
+
+    <main class="main-content">
+      <section id="view-home" class="view" aria-labelledby="home-heading">
+        <div class="welcome-head"><div><p class="eyebrow">QUẢN LÝ DỄ DÀNG</p><h1 id="home-heading">Mỗi khoản chi,<br><em>một kỷ niệm.</em></h1></div><div class="date-stamp" id="today-label"></div></div>
+
+        <div class="balance-card">
+          <div class="balance-top"><span>TỔNG KẾT THÁNG NÀY</span><span class="balance-sparkle" aria-hidden="true">✧</span></div>
+          <p class="balance-caption">Chênh lệch thu – chi</p><strong id="home-balance" class="balance-amount">0 ₫</strong>
+          <div class="balance-rows">
+            <div class="balance-metric"><span class="metric-symbol income-symbol">↙</span><div><span>Tổng thu</span><strong id="home-income">0 ₫</strong></div></div>
+            <span class="metric-divider"></span>
+            <div class="balance-metric"><span class="metric-symbol expense-symbol">↗</span><div><span>Tổng chi</span><strong id="home-expense">0 ₫</strong></div></div>
+          </div>
+          <span class="balance-deco deco-a"></span><span class="balance-deco deco-b"></span>
+        </div>
+
+        <div class="section-title-row"><div><p class="eyebrow">NHỮNG KHOẢNH KHẮC</p><h2>Nhật ký giao dịch <span id="entry-count" class="count-badge">0</span></h2></div><button id="quick-add" class="small-add" type="button" aria-label="Thêm giao dịch">＋</button></div>
+        <div class="feed-controls"><label class="search-box"><span aria-hidden="true">⌕</span><input id="search-input" type="search" placeholder="Tìm ghi chú, danh mục..." aria-label="Tìm kiếm giao dịch"></label><div class="view-toggle" role="group" aria-label="Kiểu hiển thị"><button class="toggle-btn is-active" id="mode-feed" type="button" aria-label="Dạng nhật ký" title="Nhật ký">☷</button><button class="toggle-btn" id="mode-grid" type="button" aria-label="Dạng lưới" title="Lưới">▦</button></div></div>
+        <div id="feed-list" class="feed-list" aria-live="polite"></div>
+      </section>
+
+      <section id="view-stats" class="view" hidden aria-labelledby="stats-heading">
+        <div class="page-heading"><p class="eyebrow">NHÌN LẠI TÀI CHÍNH</p><h1 id="stats-heading">Thống kê <em>thật rõ.</em></h1><p>Nhìn cách bạn chi tiêu qua từng giai đoạn.</p></div>
+        <div class="filter-pills" role="group" aria-label="Lọc theo thời gian"><button type="button" data-period="week">Tuần này</button><button class="is-active" type="button" data-period="month">Tháng này</button><button type="button" data-period="year">Năm nay</button><button type="button" data-period="custom">Tùy chọn</button></div>
+        <div id="custom-dates" class="custom-dates" hidden><label>Từ ngày<input id="start-date" type="date"></label><label>Đến ngày<input id="end-date" type="date"></label><button id="apply-dates" class="text-button" type="button">Áp dụng</button></div>
+        <div class="stats-overview"><div><span>ĐÃ THU</span><strong class="stat-income" id="stat-income">0 ₫</strong></div><div><span>ĐÃ CHI</span><strong class="stat-expense" id="stat-expense">0 ₫</strong></div></div>
+        <article class="panel chart-panel"><div class="panel-title"><div><p class="eyebrow">CHI TIÊU THEO DANH MỤC</p><h2>Tiền đã đi đâu?</h2></div><span class="tiny-tag" id="period-caption">Tháng này</span></div><div class="chart-layout"><div id="donut-chart" class="donut-chart" role="img" aria-label="Biểu đồ phân bổ chi tiêu"><div class="donut-inner"><small>TỔNG CHI</small><strong id="donut-total">0 ₫</strong></div></div><div id="category-legend" class="category-legend"></div></div></article>
+        <article class="panel"><div class="panel-title"><div><p class="eyebrow">TỪNG DANH MỤC</p><h2>Chi tiết chi tiêu</h2></div></div><div id="category-breakdown" class="breakdown"></div></article>
+      </section>
+
+      <section id="view-settings" class="view" hidden aria-labelledby="settings-heading">
+        <div class="page-heading"><p class="eyebrow">MỌI THỨ TRONG TẦM TAY</p><h1 id="settings-heading">Dữ liệu <em>của bạn.</em></h1><p>Thông tin chỉ nằm trong bộ nhớ của trình duyệt trên thiết bị này.</p></div>
+        <div class="privacy-panel"><span aria-hidden="true">✳</span><div><strong>Không cần đăng ký tài khoản</strong><p>Không gửi ảnh hay giao dịch của bạn lên máy chủ. Dữ liệu được lưu trên thiết bị bằng IndexedDB.</p></div></div>
+        <article class="panel settings-panel"><div class="settings-line"><span>📷</span><div><strong>Giao dịch đã lưu</strong><small>Tất cả ảnh & ghi chú</small></div><b id="settings-count">0</b></div><div class="settings-line"><span>💾</span><div><strong>Dung lượng trình duyệt</strong><small>Ước tính tổng dung lượng website đã dùng</small></div><b id="storage-usage">—</b></div></article>
+        <article class="panel settings-panel"><h2>Sao lưu và khôi phục</h2><p class="muted">Để tránh mất dữ liệu khi xóa website hoặc đổi iPhone, hãy sao lưu thường xuyên. File JSON chứa cả ảnh và thông tin giao dịch.</p><button type="button" class="settings-action" id="export-button"><span>↓</span><span><strong>Xuất bản sao lưu</strong><small>Tải xuống file JSON</small></span><span>›</span></button><button type="button" class="settings-action" id="import-button"><span>↑</span><span><strong>Khôi phục từ file</strong><small>Nhập và gộp giao dịch từ bản sao lưu</small></span><span>›</span></button><input type="file" id="import-file" accept="application/json,.json" hidden></article>
+        <p class="settings-footnote">Lumi Ledger · Phiên bản web 1.0<br>Hoạt động offline sau khi được mở lần đầu trên HTTPS và lưu cache thành công. Dung lượng lưu trữ phụ thuộc Safari/iOS.</p>
+      </section>
+    </main>
+
+    <nav class="bottom-nav" aria-label="Điều hướng chính"><button class="nav-item is-active" type="button" data-screen="home"><span class="nav-ico">⌂</span><span>Trang chủ</span></button><button class="nav-item" type="button" data-screen="stats"><span class="nav-ico">◷</span><span>Thống kê</span></button><button class="nav-add" id="nav-add" type="button" aria-label="Thêm giao dịch"><span>＋</span></button><button class="nav-item" type="button" data-screen="settings"><span class="nav-ico">⚙</span><span>Cài đặt</span></button></nav>
+  </div>
+
+  <div class="overlay" id="editor-overlay" hidden><section class="sheet editor-sheet" role="dialog" aria-modal="true" aria-labelledby="editor-title"><header class="sheet-head"><button class="icon-button" type="button" id="editor-close" aria-label="Đóng">✕</button><div><p class="eyebrow">LƯU GIỮ KHOẢNH KHẮC</p><h2 id="editor-title">Thêm giao dịch</h2></div><div class="sheet-head-spacer"></div></header><div class="sheet-body"><form id="transaction-form" novalidate>
+    <div class="photo-pick" id="photo-preview"><div class="photo-placeholder"><span class="photo-placeholder-icon">▧</span><strong>Thêm một bức ảnh</strong><small>Hóa đơn, chuyển khoản hay món đồ bạn thích</small></div></div>
+    <div class="photo-actions"><button type="button" id="take-photo" class="photo-action">📷 &nbsp;Chụp ảnh</button><button type="button" id="pick-photo" class="photo-action">▧ &nbsp;Thư viện</button></div>
+    <input type="file" accept="image/*" capture="environment" id="camera-input" hidden><input type="file" accept="image/*" id="gallery-input" hidden>
+    <div class="form-group"><span class="field-label">LOẠI GIAO DỊCH</span><div class="kind-switch"><button type="button" id="kind-expense" class="is-active" data-kind="expense">↗ &nbsp;Khoản chi</button><button type="button" id="kind-income" data-kind="income">↙ &nbsp;Khoản thu</button></div></div>
+    <div class="form-group"><label class="field-label" for="amount">SỐ TIỀN <span class="required">*</span></label><div class="amount-field"><input id="amount" type="text" inputmode="numeric" autocomplete="off" placeholder="0" aria-describedby="amount-hint" required><span>₫</span></div><small id="amount-hint" class="input-help">Nhập số tiền bằng VNĐ</small></div>
+    <div class="form-group"><span class="field-label">DANH MỤC</span><div class="categories" id="category-options"></div></div>
+    <div class="form-group"><label class="field-label" for="transaction-date">NGÀY & GIỜ</label><input class="text-field" id="transaction-date" type="datetime-local" required></div>
+    <div class="form-group"><label class="field-label" for="note">GHI CHÚ <span class="optional">(không bắt buộc)</span></label><textarea class="text-field" id="note" rows="2" maxlength="240" placeholder="Một chút ghi nhớ về giao dịch..."></textarea></div>
+    <div id="form-error" class="form-error" role="alert" hidden></div><button class="primary-button" id="save-button" type="submit">Lưu giao dịch <span>→</span></button>
+    </form></div></section></div>
+
+  <div class="overlay" id="detail-overlay" hidden><section class="sheet detail-sheet" role="dialog" aria-modal="true" aria-labelledby="detail-title"><header class="sheet-head"><button class="icon-button" type="button" id="detail-close" aria-label="Đóng">✕</button><div><p class="eyebrow">KHOẢNH KHẮC ĐÃ LƯU</p><h2 id="detail-title">Chi tiết giao dịch</h2></div><div class="sheet-head-spacer"></div></header><div class="sheet-body"><div id="detail-content"></div><div class="detail-actions"><button class="outline-button" id="delete-button" type="button">🗑 &nbsp;Xóa</button><button class="primary-button" id="edit-button" type="button">✎ &nbsp;Chỉnh sửa</button></div></div></section></div>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script type="module" src="./js/app.js"></script>
+</body>
+</html>
